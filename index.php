@@ -9,34 +9,41 @@
     <?php
 		$login = $_POST['login'];
 		$password = $_POST['pass'];
-		$name = $_POST['name'] ;
-		$last_name = $_POST['last_name'] ;
 		class User{
-				public $login2;
-				public $pass2;
-				public $rol2;
+				public $login;
+				public $pass;
+				public $rol;
+				public $name;
+				public $last_name;
 			}
+			/*Admin*/
 		class Admin extends User{
 			function __construct(){
-				$this->login2 = 'admin'; 
-				$this->pass2 = 'admin';
-				$this->rol2 = 'админ';
+				$this->login = 'admin'; 
+				$this->pass = 'admin';
+				$this->rol = 'админ';
+				$this->name = 'Ада';
+				$this->last_name='Байрон';
 			}
 			public function window_hi(){
-				echo 'Привет '.$this->rol2;
+				echo 'Привет '.$this->rol.' '.$this->name.' '.$this->last_name.'.'.' Вам можно все!';
 			}
 		}
 		$admin = new Admin();
+		
 		/*Meneger*/
 		
 		class Meneger extends User{
 			function __construct(){
-				$this->login2 = 'meneger'; 
-				$this->pass2 = 'meneger';
-				$this->rol2 = 'менеджер';
+				$this->login = 'meneger'; 
+				$this->pass = 'meneger';
+				$this->rol = 'менеджер';
+				$this->name = 'Иван';
+				$this->last_name='Иванов';
+				
 			}
 			public function window_hi(){
-				echo 'Привет '.$this->rol2;
+				echo 'Привет '.$this->rol.' '.$this->name.' '.$this->last_name.'.'.' Вы можете удалять и добавлять клиентов!';
 			}
 		}
 		$meneger = new Meneger();
@@ -45,41 +52,40 @@
 		
 		class Client extends User{
 			function __construct(){
-				$this->login2 = 'client'; 
-				$this->pass2 = 'client';
-				$this->rol2 = 'клиент';
+				$this->login = 'client'; 
+				$this->pass = 'client';
+				$this->rol = 'клиент';
+				$this->name = 'Афанасий ';
+				$this->last_name='Авдотьев';
 			}
 			public function window_hi(){
-				echo 'Привет '.$this->rol2;
+				echo 'Привет '.$this->rol.' '.$this->name.' '.$this->last_name.'.'.' Вы можете на сайте просматривать информацию доступную пользователям!';
 			}
 		}
 		$client = new Client();
 		
-		if ($login == 'admin' and $password== 'admin'){?><div style="text-align:center">
-		<h2> <?
-			echo $admin->window_hi().' '.$name.' '.$last_name.'.'.' Вам можно все!';?></h2></div
-		<?}elseif ($login=='meneger' and $password=='meneg'){?><div style="text-align:center">
-		<h2>  <?
-			echo $meneger->window_hi().' '.$name.' '.$last_name.'.'.' Вы можете удалять и добавлять клиентов!';?></h2></div>
-			<?
-		}elseif ($login=='client' and $password=='CLIENT'){?><div style="text-align:center">
-		<h2> <?
-			echo $client->window_hi().' '.$name.' '.$last_name.'.'.' Вы можете на сайте просматривать информацию доступную пользователям!';?></h2></div>
-		<?}else {?><div style="text-align:center">
-		<h2> <?
+		if ($login == 'admin' and $password== 'admin'){
+			$message= $admin->window_hi();
+		}elseif ($login=='meneger' and $password=='meneger'){
+			$message= $meneger->window_hi();
+		}elseif ($login=='client' and $password=='client'){
+			$message=$client->window_hi();
+		}else {
 			echo "Введите корректные данные!";
-			}?></h2></div>
-	
+			}
+			
+	?>
+		
+			<h1 style="text-align:center">
+				<?php echo $message;?>
+			</h1>
+		
     <form method="post" style="text-align:center">
 		<p>
 			<label>Login</label><br>
 			<input name="login"> <br>
 			<label>Password</label><br>
 			<input type="password" name="pass"><br>
-			<label>First name:</label><br>
-			<input type="text" name="name"><br>
-			<label>Last name:</label><br>
-			<input type="text" name="last_name"><br>
 		</p>
 	   <p><input type="submit" value="Отправить" method="post"></p>
 	</form>
