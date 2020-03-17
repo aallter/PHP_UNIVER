@@ -7,53 +7,79 @@
 </head>
 <body>
     <?php
-		
+		$login = $_POST['login'];
+		$password = $_POST['pass'];
+		$name = $_POST['name'] ;
+		$last_name = $_POST['last_name'] ;
 		class User{
-			public $user = array(
-			  1 => $_POST['login'],
-			  2 => $_POST['pass'],
-			  3 => $_POST['name'],
-			  4 => $_POST['last_name'],
-			  5 => $_POST['rol'],
-			);
-				public $login = $user[1];
-				public $password = $user[2];
-				public $name = $user[3] ;
-				public $last_name = $user[4] ;
-				public $rol= $user[5];
+				public $login2;
+				public $pass2;
+				public $rol2;
 			}
 		class Admin extends User{
-			function data{
-			$this->login = "admin";
-			$this->password = "admin";
-			$this->rol= "admin";
+			function __construct(){
+				$this->login2 = 'admin'; 
+				$this->pass2 = 'admin';
+				$this->rol2 = 'админ';
 			}
 			public function window_hi(){
-				echo 'Привет'.$this->rol.' '.$this->name;
+				echo 'Привет '.$this->rol2;
 			}
 		}
+		$admin = new Admin();
+		/*Meneger*/
 		
-		
-		if ($login == "admin" and $password == "admin" ){
-			$admin = new Admin();
-			$admin->window_hi();
-		}else{
-			echo "NO";
+		class Meneger extends User{
+			function __construct(){
+				$this->login2 = 'meneger'; 
+				$this->pass2 = 'meneger';
+				$this->rol2 = 'менеджер';
 			}
-	?>
-
-    <form method="post">
+			public function window_hi(){
+				echo 'Привет '.$this->rol2;
+			}
+		}
+		$meneger = new Meneger();
+		
+		/*Client*/
+		
+		class Client extends User{
+			function __construct(){
+				$this->login2 = 'client'; 
+				$this->pass2 = 'client';
+				$this->rol2 = 'клиент';
+			}
+			public function window_hi(){
+				echo 'Привет '.$this->rol2;
+			}
+		}
+		$client = new Client();
+		
+		if ($login == 'admin' and $password== 'admin'){?><div style="text-align:center">
+		<h2> <?
+			echo $admin->window_hi().' '.$name.' '.$last_name.'.'.' Вам можно все!';?></h2></div
+		<?}elseif ($login=='meneger' and $password=='meneg'){?><div style="text-align:center">
+		<h2>  <?
+			echo $meneger->window_hi().' '.$name.' '.$last_name.'.'.' Вы можете удалять и добавлять клиентов!';?></h2></div>
+			<?
+		}elseif ($login=='client' and $password=='CLIENT'){?><div style="text-align:center">
+		<h2> <?
+			echo $client->window_hi().' '.$name.' '.$last_name.'.'.' Вы можете на сайте просматривать информацию доступную пользователям!';?></h2></div>
+		<?}else {?><div style="text-align:center">
+		<h2> <?
+			echo "Введите корректные данные!";
+			}?></h2></div>
+	
+    <form method="post" style="text-align:center">
 		<p>
 			<label>Login</label><br>
 			<input name="login"> <br>
-			<label for="pass">Password</label><br>
+			<label>Password</label><br>
 			<input type="password" name="pass"><br>
-			<label for="name">First name:</label><br>
+			<label>First name:</label><br>
 			<input type="text" name="name"><br>
-			<label for="last_name">Last name:</label><br>
+			<label>Last name:</label><br>
 			<input type="text" name="last_name"><br>
-			<label for="rol">Роль</label><br>
-			<input type="text" name="rol">
 		</p>
 	   <p><input type="submit" value="Отправить" method="post"></p>
 	</form>
